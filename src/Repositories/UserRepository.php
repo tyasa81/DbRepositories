@@ -6,7 +6,7 @@ use App\Models\User;
 use tyasa81\DbRepositories\EloquentTrait;
 use tyasa81\DbRepositories\RepositoryInterface;
 
-final class UserRepository implements RepositoryInterface 
+final class UserRepository implements RepositoryInterface
 {
     use EloquentTrait;
 
@@ -17,9 +17,10 @@ final class UserRepository implements RepositoryInterface
     // do not pass in default db connectors to decouple application logic to application environment
     // hence you can move db to a remote type, and yet still assign a specific connector for that specific business requirement
 
-    public function __construct(string $connector = null) {
-        $this->model = new User();
-        if($connector) {
+    public function __construct(?string $connector = null)
+    {
+        $this->model = new User;
+        if ($connector) {
             $this->model = $this->model->on($connector);
         }
     }

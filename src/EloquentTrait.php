@@ -193,11 +193,11 @@ trait EloquentTrait
         return $model->sum();
     }
 
-    public function updateMany(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $updates)
+    public function updateMany(array $wheres, array $whereIns, array $whereHaves, array $updates)
     {
-        if(!count($wheres) && !count($whereIns) && !count($whereHaves)) {
+        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves)) {
             return null;
-        } elseif(!count($updates)) {
+        } elseif (! count($updates)) {
             return null;
         }
         $model = clone $this->model;
@@ -222,7 +222,7 @@ trait EloquentTrait
 
     public function deleteMany(array $wheres = [], array $whereIns = [], array $whereHaves = [])
     {
-        if(!count($wheres) && !count($whereIns) && !count($whereHaves)) {
+        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves)) {
             return null;
         }
         $model = clone $this->model;

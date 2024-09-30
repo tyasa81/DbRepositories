@@ -18,7 +18,7 @@ interface RepositoryInterface
 
     public function sum(array $wheres = [], array $whereIns = [], array $whereHaves = []);
 
-    public function updateMany(array $wheres, array $whereIns, array $whereHaves, array $updates);
+    public function updateMany(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $updates);
 
     public function deleteMany(array $wheres = [], array $whereIns = [], array $whereHaves = []);
 

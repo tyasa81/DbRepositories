@@ -274,11 +274,9 @@ trait EloquentTrait
         if (count($withs)) {
             $model = $model->with($withs);
         }
-        
+
         return $model->chunkById($perChunk, $handler);
     }
-
-
 
     public static function delete($model)
     {

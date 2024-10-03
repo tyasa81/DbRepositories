@@ -2,9 +2,9 @@
 
 namespace tyasa81\DbRepositories\Tests\Repositories;
 
-use Workbench\App\Models\User;
 use tyasa81\DbRepositories\EloquentTrait;
 use tyasa81\DbRepositories\RepositoryInterface;
+use Workbench\App\Models\User;
 
 final class UserRepository implements RepositoryInterface
 {
@@ -19,7 +19,7 @@ final class UserRepository implements RepositoryInterface
 
     public function __construct(?string $connector = null)
     {
-        $this->model = new User();
+        $this->model = new User;
         if ($connector) {
             $this->model = $this->model->on($connector);
         }

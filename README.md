@@ -59,6 +59,8 @@ echo $dbRepositories->echoPhrase('Hello, tyasa81!');
 ## Testing
 
 ```bash
+vendor/bin/testbench package:create-sqlite-db
+vendor/bin/testbench migrate
 composer test
 ```
 

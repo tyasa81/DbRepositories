@@ -250,6 +250,36 @@ trait EloquentTrait
         return $model->delete();
     }
 
+    public function chunkById(callable $handler, array $wheres = [], array $whereIns = [], array $whereHaves = [], array $selects = [], array $withs = [], int $perChunk = 100)
+    {
+        $model = clone $this->model;
+        foreach ($wheres as $where) {
+            if (is_array($where) && count($where) === 3) {
+                $model = $model->where($where[0], $where[1], $where[2]);
+            } elseif (is_array($where) && count($where) === 2) {
+                $model = $model->where($where[0], $where[1]);
+            } else {
+                $model = $model->where($where);
+            }
+        }
+        foreach ($whereIns as $whereIn) {
+            $model = $model->whereIn($whereIn[0], $whereIn[1]);
+        }
+        foreach ($whereHaves as $whereHas) {
+            $model = $model->whereHas($whereHas[0], $whereHas[1]);
+        }
+        if (count($selects)) {
+            $model = $model->select($selects);
+        }
+        if (count($withs)) {
+            $model = $model->with($withs);
+        }
+        
+        return $model->chunkById($perChunk, $handler);
+    }
+
+
+
     public static function delete($model)
     {
         return $model->delete();

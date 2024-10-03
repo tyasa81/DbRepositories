@@ -22,6 +22,8 @@ interface RepositoryInterface
 
     public function deleteMany(array $wheres = [], array $whereIns = [], array $whereHaves = []);
 
+    public function chunkById(callable $handler, array $wheres = [], array $whereIns = [], array $whereHaves = [], array $selects = [], array $withs = [], int $perChunk = 100);
+
     public static function delete($model);
 
     public static function save($model);

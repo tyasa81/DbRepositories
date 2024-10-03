@@ -10,7 +10,7 @@ trait EloquentTrait
     public function get(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $selects = [], array $withs = [], array $orderBys = [])
     {
         if (! count($wheres) && ! count($whereIns) && ! count($whereHaves)) {
-            throw new BlockedQueryException("Empty query");
+            throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
         foreach ($wheres as $where) {
@@ -46,7 +46,7 @@ trait EloquentTrait
     public function first(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $selects = [], array $withs = [], array $orderBys = [])
     {
         if (! count($wheres) && ! count($whereIns) && ! count($whereHaves)) {
-            throw new BlockedQueryException("Empty query");
+            throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
         foreach ($wheres as $where) {
@@ -82,7 +82,7 @@ trait EloquentTrait
     public function paginate(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $selects = [], array $withs = [], array $orderBys = [], int $perPage = 10)
     {
         if (! count($wheres) && ! count($whereIns) && ! count($whereHaves)) {
-            throw new BlockedQueryException("Empty query");
+            throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
         foreach ($wheres as $where) {
@@ -118,7 +118,7 @@ trait EloquentTrait
     public function cursor_paginate(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $selects = [], array $withs = [], array $orderBys = [], int $perPage = 10)
     {
         if (! count($wheres) && ! count($whereIns) && ! count($whereHaves)) {
-            throw new BlockedQueryException("Empty query");
+            throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
         foreach ($wheres as $where) {
@@ -173,10 +173,10 @@ trait EloquentTrait
         return $model->count();
     }
 
-    public function sum(array $wheres = [], array $whereIns = [], array $whereHaves = [], $columnName = "")
+    public function sum(array $wheres = [], array $whereIns = [], array $whereHaves = [], $columnName = '')
     {
-        if(!$columnName) {
-            throw new BlockedQueryException("Column name need to be specified for sum");
+        if (! $columnName) {
+            throw new BlockedQueryException('Column name need to be specified for sum');
         }
         $model = clone $this->model;
         foreach ($wheres as $where) {
@@ -201,9 +201,9 @@ trait EloquentTrait
     public function updateMany(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $updates = [])
     {
         if (! count($wheres) && ! count($whereIns) && ! count($whereHaves)) {
-            throw new BlockedQueryException("Empty query");
+            throw new BlockedQueryException('Empty query');
         } elseif (! count($updates)) {
-            throw new BlockedQueryException("Updates need to be specified");
+            throw new BlockedQueryException('Updates need to be specified');
         }
         $model = clone $this->model;
         foreach ($wheres as $where) {
@@ -228,7 +228,7 @@ trait EloquentTrait
     public function deleteMany(array $wheres = [], array $whereIns = [], array $whereHaves = [])
     {
         if (! count($wheres) && ! count($whereIns) && ! count($whereHaves)) {
-            throw new BlockedQueryException("Empty query");
+            throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
         foreach ($wheres as $where) {

@@ -7,14 +7,6 @@
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/DbRepositories.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/DbRepositories)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
-
 ## Installation
 
 You can install the package via composer:
@@ -23,43 +15,36 @@ You can install the package via composer:
 composer require tyasa81/dbrepositories
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="dbrepositories-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="dbrepositories-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="dbrepositories-views"
-```
-
 ## Usage
 
+create your repository file, then implement RepositoryInterface and use EloquentTrait as below. Or you can extend your own implementation
+
 ```php
-$dbRepositories = new tyasa81\DbRepositories();
-echo $dbRepositories->echoPhrase('Hello, tyasa81!');
+use tyasa81\DbRepositories\EloquentTrait;
+use tyasa81\DbRepositories\RepositoryInterface;
+use App\Models\User;
+
+final class UserRepository implements RepositoryInterface
+{
+    use EloquentTrait;
+
+    private $model;
+
+    public function __construct(?string $connector = null)
+    {
+        $this->model = new User;
+        if ($connector) {
+            $this->model = $this->model->on($connector);
+        }
+    }
+}
 ```
 
 ## Testing
 
 ```bash
 vendor/bin/testbench package:create-sqlite-db
+vendor/bin/testbench publish
 vendor/bin/testbench migrate
 composer test
 ```

@@ -61,6 +61,29 @@ class UserRepositoryTest extends TestCase
         $this->assertEquals(2, $count);
     }
 
+    public function test_user_repository_whereNull()
+    {
+        $user = User::create([
+            "email"=>"test@gmail.com",
+            "password"=>Hash::make("12345678"),
+            "name"=>"Test"
+        ]);
+        $user2 = User::create([
+            "email"=>"test2@gmail.com",
+            "password"=>Hash::make("12345678"),
+            "name"=>"Test2"
+        ]);
+        $repo = new UserRepository;
+        $count = $repo->count(wheres: [
+            ["name","LIKE","TEST%"]
+        ], whereNulls: ["email_verified_at"]);
+        $this->assertEquals(2, $count);
+        $count = $repo->count(wheres: [
+            ["name","LIKE","TEST%"]
+        ], whereNotNulls: ["email_verified_at"]);
+        $this->assertEquals(0, $count);
+    }
+
     public function test_user_repository_get()
     {
         $user = User::create([

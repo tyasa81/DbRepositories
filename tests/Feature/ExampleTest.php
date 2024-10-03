@@ -2,10 +2,7 @@
 
 // test-laravel-package-isolated/tests/RouteTest.php
 
-use Illuminate\Support\Facades\Hash;
 use tyasa81\DbRepositories\Tests\TestCase;
-use tyasa81\DbRepositories\Tests\Repositories\UserRepository;
-use Workbench\App\Models\User;
 
 // When testing inside of a Laravel installation, the base class would be Tests\TestCase
 class ExampleTest extends TestCase

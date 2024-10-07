@@ -44,7 +44,6 @@ final class UserRepository implements RepositoryInterface
 
 ```bash
 vendor/bin/testbench package:create-sqlite-db
-vendor/bin/testbench publish
 vendor/bin/testbench migrate
 composer test
 ```

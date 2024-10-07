@@ -3,6 +3,7 @@
 // test-laravel-package-isolated/tests/RouteTest.php
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use tyasa81\DbRepositories\Tests\Repositories\UserRepository;
 use tyasa81\DbRepositories\Tests\TestCase;
@@ -102,6 +103,37 @@ class UserRepositoryTest extends TestCase
             ['name', 'LIKE', 'TEST%'],
         ]);
         $this->assertEquals(2, count($users));
+    }
+
+    public function test_user_repository_groupBys()
+    {
+        $user = User::create([
+            'email' => 'test@gmail.com',
+            'password' => Hash::make('12345678'),
+            'name' => 'Test',
+        ]);
+        $user2 = User::create([
+            'email' => 'test2@gmail.com',
+            'password' => Hash::make('12345678'),
+            'name' => 'Test2',
+        ]);
+        $user2 = User::create([
+            'email' => 'test3@gmail.com',
+            'password' => Hash::make('12345678'),
+            'name' => 'Test2',
+        ]);
+        $repo = new UserRepository;
+        $users = $repo->get(groupBys: [
+            "name",
+        ], selects: ["name", DB::raw("count(*) as count")]);
+        $this->assertEquals(2, count($users));
+        foreach($users as $user) {
+            if($user['name']=="Test2") {
+                $this->assertEquals(2, $user['count']);
+            } else {
+                $this->assertEquals(1, $user['count']);
+            }
+        }
     }
 
     public function test_user_repository_sum()

@@ -7,9 +7,9 @@ use tyasa81\DbRepositories\Exceptions\BlockedQueryException;
 trait EloquentTrait
 {
     // you need a model variable in the repository
-    public function get(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $selects = [], array $withs = [], array $orderBys = [])
+    public function get(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [])
     {
-        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves)) {
+        if (!count($wheres) && !count($whereIns) && !count($whereHaves) && !count($whereNulls) && !count($whereNotNulls) && !count($groupBys)) {
             throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
@@ -33,6 +33,9 @@ trait EloquentTrait
         }
         foreach ($whereNotNulls as $whereNotNull) {
             $model = $model->whereNotNull($whereNotNull);
+        }
+        if (count($groupBys)) {
+            $model = $model->groupBy($groupBys);
         }
         if (count($selects)) {
             $model = $model->select($selects);
@@ -49,9 +52,9 @@ trait EloquentTrait
         return $model->get();
     }
 
-    public function first(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $selects = [], array $withs = [], array $orderBys = [])
+    public function first(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [])
     {
-        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves)) {
+        if (!count($wheres) && !count($whereIns) && !count($whereHaves) && !count($whereNulls) && !count($whereNotNulls) && !count($groupBys)) {
             throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
@@ -75,6 +78,9 @@ trait EloquentTrait
         }
         foreach ($whereNotNulls as $whereNotNull) {
             $model = $model->whereNotNull($whereNotNull);
+        }
+        if (count($groupBys)) {
+            $model = $model->groupBy($groupBys);
         }
         if (count($selects)) {
             $model = $model->select($selects);
@@ -91,9 +97,9 @@ trait EloquentTrait
         return $model->first();
     }
 
-    public function paginate(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $selects = [], array $withs = [], array $orderBys = [], int $perPage = 10)
+    public function paginate(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [], int $perPage = 10)
     {
-        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves)) {
+        if (!count($wheres) && !count($whereIns) && !count($whereHaves) && !count($whereNulls) && !count($whereNotNulls) && !count($groupBys)) {
             throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
@@ -117,6 +123,9 @@ trait EloquentTrait
         }
         foreach ($whereNotNulls as $whereNotNull) {
             $model = $model->whereNotNull($whereNotNull);
+        }
+        if (count($groupBys)) {
+            $model = $model->groupBy($groupBys);
         }
         if (count($selects)) {
             $model = $model->select($selects);
@@ -133,9 +142,9 @@ trait EloquentTrait
         return $model->paginate($perPage);
     }
 
-    public function cursor_paginate(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $selects = [], array $withs = [], array $orderBys = [], int $perPage = 10)
+    public function cursor_paginate(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [], int $perPage = 10)
     {
-        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves)) {
+        if (!count($wheres) && !count($whereIns) && !count($whereHaves) && !count($whereNulls) && !count($whereNotNulls) && !count($groupBys)) {
             throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
@@ -160,6 +169,9 @@ trait EloquentTrait
         foreach ($whereNotNulls as $whereNotNull) {
             $model = $model->whereNotNull($whereNotNull);
         }
+        if (count($groupBys)) {
+            $model = $model->groupBy($groupBys);
+        }
         if (count($selects)) {
             $model = $model->select($selects);
         }
@@ -175,7 +187,7 @@ trait EloquentTrait
         return $model->cursor_paginate($perPage);
     }
 
-    public function count(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [])
+    public function count(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [])
     {
         $model = clone $this->model;
         foreach ($wheres as $where) {
@@ -199,11 +211,14 @@ trait EloquentTrait
         foreach ($whereNotNulls as $whereNotNull) {
             $model = $model->whereNotNull($whereNotNull);
         }
-
+        if (count($groupBys)) {
+            $model = $model->groupBy($groupBys);
+        }
+        
         return $model->count();
     }
 
-    public function sum(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], $columnName = '')
+    public function sum(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], $columnName = '')
     {
         if (! $columnName) {
             throw new BlockedQueryException('Column name need to be specified for sum');
@@ -230,7 +245,10 @@ trait EloquentTrait
         foreach ($whereNotNulls as $whereNotNull) {
             $model = $model->whereNotNull($whereNotNull);
         }
-
+        if (count($groupBys)) {
+            $model = $model->groupBy($groupBys);
+        }
+        
         return $model->sum($columnName);
     }
 
@@ -298,7 +316,7 @@ trait EloquentTrait
         return $model->delete();
     }
 
-    public function chunkById(callable $handler, array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $selects = [], array $withs = [], int $perChunk = 100)
+    public function chunkById(callable $handler, array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], int $perChunk = 100)
     {
         $model = clone $this->model;
         foreach ($wheres as $where) {
@@ -321,6 +339,9 @@ trait EloquentTrait
         }
         foreach ($whereNotNulls as $whereNotNull) {
             $model = $model->whereNotNull($whereNotNull);
+        }
+        if (count($groupBys)) {
+            $model = $model->groupBy($groupBys);
         }
         if (count($selects)) {
             $model = $model->select($selects);

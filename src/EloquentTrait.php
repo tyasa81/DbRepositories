@@ -9,7 +9,7 @@ trait EloquentTrait
     // you need a model variable in the repository
     public function get(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [])
     {
-        if (!count($wheres) && !count($whereIns) && !count($whereHaves) && !count($whereNulls) && !count($whereNotNulls) && !count($groupBys)) {
+        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves) && ! count($whereNulls) && ! count($whereNotNulls) && ! count($groupBys)) {
             throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
@@ -54,7 +54,7 @@ trait EloquentTrait
 
     public function first(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [])
     {
-        if (!count($wheres) && !count($whereIns) && !count($whereHaves) && !count($whereNulls) && !count($whereNotNulls) && !count($groupBys)) {
+        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves) && ! count($whereNulls) && ! count($whereNotNulls) && ! count($groupBys)) {
             throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
@@ -99,7 +99,7 @@ trait EloquentTrait
 
     public function paginate(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [], int $perPage = 10)
     {
-        if (!count($wheres) && !count($whereIns) && !count($whereHaves) && !count($whereNulls) && !count($whereNotNulls) && !count($groupBys)) {
+        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves) && ! count($whereNulls) && ! count($whereNotNulls) && ! count($groupBys)) {
             throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
@@ -144,7 +144,7 @@ trait EloquentTrait
 
     public function cursor_paginate(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [], int $perPage = 10)
     {
-        if (!count($wheres) && !count($whereIns) && !count($whereHaves) && !count($whereNulls) && !count($whereNotNulls) && !count($groupBys)) {
+        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves) && ! count($whereNulls) && ! count($whereNotNulls) && ! count($groupBys)) {
             throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
@@ -214,7 +214,7 @@ trait EloquentTrait
         if (count($groupBys)) {
             $model = $model->groupBy($groupBys);
         }
-        
+
         return $model->count();
     }
 
@@ -248,7 +248,7 @@ trait EloquentTrait
         if (count($groupBys)) {
             $model = $model->groupBy($groupBys);
         }
-        
+
         return $model->sum($columnName);
     }
 

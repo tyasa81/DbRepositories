@@ -124,11 +124,11 @@ class UserRepositoryTest extends TestCase
         ]);
         $repo = new UserRepository;
         $users = $repo->get(groupBys: [
-            "name",
-        ], selects: ["name", DB::raw("count(*) as count")]);
+            'name',
+        ], selects: ['name', DB::raw('count(*) as count')]);
         $this->assertEquals(2, count($users));
-        foreach($users as $user) {
-            if($user['name']=="Test2") {
+        foreach ($users as $user) {
+            if ($user['name'] == 'Test2') {
                 $this->assertEquals(2, $user['count']);
             } else {
                 $this->assertEquals(1, $user['count']);

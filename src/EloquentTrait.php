@@ -2,6 +2,7 @@
 
 namespace tyasa81\DbRepositories;
 
+use Carbon\Carbon;
 use tyasa81\DbRepositories\Exceptions\BlockedQueryException;
 
 trait EloquentTrait
@@ -9,7 +10,7 @@ trait EloquentTrait
     // you need a model variable in the repository
     public function get(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [])
     {
-        if (!count($wheres) && !count($whereIns) && !count($whereHaves) && !count($whereNulls) && !count($whereNotNulls) && !count($groupBys)) {
+        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves) && ! count($whereNulls) && ! count($whereNotNulls) && ! count($groupBys)) {
             throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
@@ -54,7 +55,7 @@ trait EloquentTrait
 
     public function first(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [])
     {
-        if (!count($wheres) && !count($whereIns) && !count($whereHaves) && !count($whereNulls) && !count($whereNotNulls) && !count($groupBys)) {
+        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves) && ! count($whereNulls) && ! count($whereNotNulls) && ! count($groupBys)) {
             throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
@@ -99,7 +100,7 @@ trait EloquentTrait
 
     public function paginate(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [], int $perPage = 10)
     {
-        if (!count($wheres) && !count($whereIns) && !count($whereHaves) && !count($whereNulls) && !count($whereNotNulls) && !count($groupBys)) {
+        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves) && ! count($whereNulls) && ! count($whereNotNulls) && ! count($groupBys)) {
             throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
@@ -144,7 +145,7 @@ trait EloquentTrait
 
     public function cursor_paginate(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [], int $perPage = 10)
     {
-        if (!count($wheres) && !count($whereIns) && !count($whereHaves) && !count($whereNulls) && !count($whereNotNulls) && !count($groupBys)) {
+        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves) && ! count($whereNulls) && ! count($whereNotNulls) && ! count($groupBys)) {
             throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;
@@ -214,7 +215,7 @@ trait EloquentTrait
         if (count($groupBys)) {
             $model = $model->groupBy($groupBys);
         }
-        
+
         return $model->count();
     }
 
@@ -248,13 +249,13 @@ trait EloquentTrait
         if (count($groupBys)) {
             $model = $model->groupBy($groupBys);
         }
-        
+
         return $model->sum($columnName);
     }
 
     public function updateMany(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $updates = [])
     {
-        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves)) {
+        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves) && ! count($whereNulls) && ! count($whereNotNulls)) {
             throw new BlockedQueryException('Empty query');
         } elseif (! count($updates)) {
             throw new BlockedQueryException('Updates need to be specified');
@@ -281,13 +282,16 @@ trait EloquentTrait
         foreach ($whereNotNulls as $whereNotNull) {
             $model = $model->whereNotNull($whereNotNull);
         }
+        if (! isset($updates['updated_at']) && $this->model->timestamps !== false) {
+            $updates['updated_at'] = Carbon::now();
+        }
 
         return $model->update($updates);
     }
 
     public function deleteMany(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [])
     {
-        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves)) {
+        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves) && ! count($whereNulls) && ! count($whereNotNulls)) {
             throw new BlockedQueryException('Empty query');
         }
         $model = clone $this->model;

@@ -10,9 +10,6 @@ trait EloquentTrait
     // you need a model variable in the repository
     public function get(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [])
     {
-        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves) && ! count($whereNulls) && ! count($whereNotNulls) && ! count($groupBys)) {
-            throw new BlockedQueryException('Empty query');
-        }
         $model = clone $this->model;
         foreach ($wheres as $where) {
             if (is_array($where) && count($where) === 3) {
@@ -55,9 +52,6 @@ trait EloquentTrait
 
     public function first(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [])
     {
-        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves) && ! count($whereNulls) && ! count($whereNotNulls) && ! count($groupBys)) {
-            throw new BlockedQueryException('Empty query');
-        }
         $model = clone $this->model;
         foreach ($wheres as $where) {
             if (is_array($where) && count($where) === 3) {
@@ -100,9 +94,6 @@ trait EloquentTrait
 
     public function paginate(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [], int $perPage = 10)
     {
-        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves) && ! count($whereNulls) && ! count($whereNotNulls) && ! count($groupBys)) {
-            throw new BlockedQueryException('Empty query');
-        }
         $model = clone $this->model;
         foreach ($wheres as $where) {
             if (is_array($where) && count($where) === 3) {
@@ -145,9 +136,6 @@ trait EloquentTrait
 
     public function cursor_paginate(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [], int $perPage = 10)
     {
-        if (! count($wheres) && ! count($whereIns) && ! count($whereHaves) && ! count($whereNulls) && ! count($whereNotNulls) && ! count($groupBys)) {
-            throw new BlockedQueryException('Empty query');
-        }
         $model = clone $this->model;
         foreach ($wheres as $where) {
             if (is_array($where) && count($where) === 3) {
@@ -221,9 +209,6 @@ trait EloquentTrait
 
     public function sum(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], $columnName = '')
     {
-        if (! $columnName) {
-            throw new BlockedQueryException('Column name need to be specified for sum');
-        }
         $model = clone $this->model;
         foreach ($wheres as $where) {
             if (is_array($where) && count($where) === 3) {

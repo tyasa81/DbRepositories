@@ -27,4 +27,6 @@ interface RepositoryInterface
     public static function delete($model);
 
     public static function save($model);
+
+    public static function update($model, array $updates);
 }

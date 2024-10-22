@@ -351,4 +351,9 @@ trait EloquentTrait
     {
         return $model->save();
     }
+
+    public static function update($model, array $updates)
+    {
+        return $model->update($updates);
+    }
 }

@@ -134,7 +134,7 @@ trait EloquentTrait
         return $model->paginate($perPage);
     }
 
-    public function cursor_paginate(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [], int $perPage = 10)
+    public function cursorPaginate(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], array $selects = [], array $withs = [], array $orderBys = [], int $perPage = 10)
     {
         $model = clone $this->model;
         foreach ($wheres as $where) {
@@ -173,7 +173,7 @@ trait EloquentTrait
             }
         }
 
-        return $model->cursor_paginate($perPage);
+        return $model->cursorPaginate($perPage);
     }
 
     public function count(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [])

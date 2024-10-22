@@ -247,6 +247,29 @@ class UserRepositoryTest extends TestCase
         $this->assertEquals(1, count($users));
     }
 
+    public function test_user_repository_cursor_paginate()
+    {
+        $user = User::create([
+            'email' => 'test@gmail.com',
+            'password' => Hash::make('12345678'),
+            'name' => 'Wow',
+        ]);
+        $user2 = User::create([
+            'email' => 'test2@gmail.com',
+            'password' => Hash::make('12345678'),
+            'name' => 'Test2',
+        ]);
+        $user2 = User::create([
+            'email' => 'test3@gmail.com',
+            'password' => Hash::make('12345678'),
+            'name' => 'Test3',
+        ]);
+        $response = $this->userRepository->cursorPaginate(wheres: [
+            ['name', 'LIKE', 'Test%'],
+        ]);
+        $this->assertEquals(2, count($response));
+    }
+
     public function test_user_repository_update()
     {
         $user = User::create([

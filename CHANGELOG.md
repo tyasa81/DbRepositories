@@ -2,6 +2,10 @@
 
 All notable changes to `DbRepositories` will be documented in this file.
 
+## v1.3.0 - 2024-11-06
+
+Add aggregate methods of max, min and avg to interface and eloquent traits
+
 ## v1.2.1 - 2024-10-22
 
 Fix bug cursorPaginate

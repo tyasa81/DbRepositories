@@ -238,6 +238,99 @@ trait EloquentTrait
         return $model->sum($columnName);
     }
 
+    public function max(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], $columnName = '')
+    {
+        $model = clone $this->model;
+        foreach ($wheres as $where) {
+            if (is_array($where) && count($where) === 3) {
+                $model = $model->where($where[0], $where[1], $where[2]);
+            } elseif (is_array($where) && count($where) === 2) {
+                $model = $model->where($where[0], $where[1]);
+            } else {
+                $model = $model->where($where);
+            }
+        }
+        foreach ($whereIns as $whereIn) {
+            $model = $model->whereIn($whereIn[0], $whereIn[1]);
+        }
+        foreach ($whereHaves as $whereHas) {
+            $model = $model->whereHas($whereHas[0], $whereHas[1]);
+        }
+        foreach ($whereNulls as $whereNull) {
+            $model = $model->whereNull($whereNull);
+        }
+        foreach ($whereNotNulls as $whereNotNull) {
+            $model = $model->whereNotNull($whereNotNull);
+        }
+        if (count($groupBys)) {
+            $model = $model->groupBy($groupBys);
+        }
+
+        return $model->max($columnName);
+    }
+
+    public function min(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], $columnName = '')
+    {
+        $model = clone $this->model;
+        foreach ($wheres as $where) {
+            if (is_array($where) && count($where) === 3) {
+                $model = $model->where($where[0], $where[1], $where[2]);
+            } elseif (is_array($where) && count($where) === 2) {
+                $model = $model->where($where[0], $where[1]);
+            } else {
+                $model = $model->where($where);
+            }
+        }
+        foreach ($whereIns as $whereIn) {
+            $model = $model->whereIn($whereIn[0], $whereIn[1]);
+        }
+        foreach ($whereHaves as $whereHas) {
+            $model = $model->whereHas($whereHas[0], $whereHas[1]);
+        }
+        foreach ($whereNulls as $whereNull) {
+            $model = $model->whereNull($whereNull);
+        }
+        foreach ($whereNotNulls as $whereNotNull) {
+            $model = $model->whereNotNull($whereNotNull);
+        }
+        if (count($groupBys)) {
+            $model = $model->groupBy($groupBys);
+        }
+
+        return $model->min($columnName);
+    }
+
+    public function avg(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $groupBys = [], $columnName = '')
+    {
+        $model = clone $this->model;
+        foreach ($wheres as $where) {
+            if (is_array($where) && count($where) === 3) {
+                $model = $model->where($where[0], $where[1], $where[2]);
+            } elseif (is_array($where) && count($where) === 2) {
+                $model = $model->where($where[0], $where[1]);
+            } else {
+                $model = $model->where($where);
+            }
+        }
+        foreach ($whereIns as $whereIn) {
+            $model = $model->whereIn($whereIn[0], $whereIn[1]);
+        }
+        foreach ($whereHaves as $whereHas) {
+            $model = $model->whereHas($whereHas[0], $whereHas[1]);
+        }
+        foreach ($whereNulls as $whereNull) {
+            $model = $model->whereNull($whereNull);
+        }
+        foreach ($whereNotNulls as $whereNotNull) {
+            $model = $model->whereNotNull($whereNotNull);
+        }
+        if (count($groupBys)) {
+            $model = $model->groupBy($groupBys);
+        }
+
+        return $model->avg($columnName);
+    }
+
     public function updateMany(array $wheres = [], array $whereIns = [], array $whereHaves = [], array $whereNulls = [], array $whereNotNulls = [], array $updates = [])
     {
         if (! count($wheres) && ! count($whereIns) && ! count($whereHaves) && ! count($whereNulls) && ! count($whereNotNulls)) {
